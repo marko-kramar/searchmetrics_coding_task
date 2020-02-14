@@ -6,6 +6,7 @@ import com.markokramar.codingtask.service.BitcoinExchangeRateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,13 +19,14 @@ public class BitcoinExchangeRateController {
     @Autowired
     private BitcoinExchangeRateService bitcoinExchangeRateService;
 
-    @GetMapping("/latest")
-    public BitcoinLatestUsdRate fetchLatestRate() {
+    @GetMapping("/latest/{period}")
+    public BitcoinLatestUsdRate fetchLatestRate(@PathVariable int period) {
         return bitcoinExchangeRateService.fetchLatestRate();
     }
 
     @GetMapping("/historical")
-    public List<BitcoinHistoricalUsdRate> fetchHistoricalRates(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) throws Exception {
+    public List<BitcoinHistoricalUsdRate> fetchHistoricalRates(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) throws Exception {
         return bitcoinExchangeRateService.fetchHistoricalRates(startDate, endDate);
     }
 
