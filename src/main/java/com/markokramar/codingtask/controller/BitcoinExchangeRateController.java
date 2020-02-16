@@ -26,6 +26,14 @@ public class BitcoinExchangeRateController {
     @GetMapping("/historical")
     public List<BitcoinHistoricalUsdRate> fetchHistoricalRates(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) throws Exception {
+        if (startDate == null) {
+            throw new IllegalArgumentException("Error: The 'startDate' parameter is invalid!");
+        }
+
+        if (endDate == null) {
+            throw new IllegalArgumentException("Error: The 'endDate' parameter is invalid!");
+        }
+
         return bitcoinExchangeRateService.fetchHistoricalRates(startDate, endDate);
     }
 
