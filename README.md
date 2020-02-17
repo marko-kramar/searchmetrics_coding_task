@@ -29,7 +29,7 @@ Usage
 -------------
 As any Spring Boot Maven project, it can be imported to Eclipse/IntelliJ and you can run it from there. Also, if you want, you can run it from command line.
 
-You can run the application with `.mvnw/spring-boot:run` command. Also, if you want to build an executable JAR, you can use `./mvnw clean package`, and then:
+You can run the application with `./mvnw spring-boot:run` command. Also, if you want to build an executable JAR, you can use `./mvnw clean package`, and then:
 
 ```sh
 java -jar codingtask.jar
