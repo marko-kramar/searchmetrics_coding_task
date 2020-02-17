@@ -2,7 +2,7 @@ Coding task solution
 ===============
 > A REST service developed in Spring Boot, that constantly checks latest and historical Bitcoin rates in USD
 -------------
-- [Live demo testing tool](http://markokramar.com:9090/codingtask)
+- [Live demo testing tool (tested in Google Chrome)](http://markokramar.com:9090/codingtask)
 
 Service has two endpoints that return corresponding JSON:
 -------------
