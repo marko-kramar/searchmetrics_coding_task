@@ -32,7 +32,7 @@ $(function() {
         $("#historical-table-body").html("");
 
         $.ajax({
-            url: "/historical",
+            url: "/codingtask/historical",
             data: {
                 "startDate" : getIsoShortDate(dateFrom),
                 "endDate" : getIsoShortDate(dateTo)
@@ -47,7 +47,7 @@ $(function() {
         $("#latest-rate, #latest-date").html("");
 
         $.ajax({
-            url: "/latest"
+            url: "/codingtask/latest"
         }).done(function(data) {
             $("#latest-rate").text(parseAndShortenRate(data.rate) + " USD");
             $("#latest-date").text(getDateAndTimeString(new Date(data.timeUpdated)) + " (Central European Time)");

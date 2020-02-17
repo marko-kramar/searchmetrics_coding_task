@@ -18,12 +18,12 @@ public class BitcoinExchangeRateController {
     @Autowired
     private BitcoinExchangeRateService bitcoinExchangeRateService;
 
-    @GetMapping("/latest")
+    @GetMapping("/codingtask/latest")
     public BitcoinLatestUsdRate fetchLatestRate() {
         return bitcoinExchangeRateService.fetchLatestRate();
     }
 
-    @GetMapping("/historical")
+    @GetMapping("/codingtask/historical")
     public List<BitcoinHistoricalUsdRate> fetchHistoricalRates(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) throws Exception {
         if (startDate == null) {

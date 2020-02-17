@@ -21,7 +21,7 @@ public class BitcoinExchangeRateControllerTest {
 
     @Test
     public void shouldReturnLatestBitcoinRateAndTimeAsJson() throws Exception {
-        this.mockMvc.perform(get("/latest"))
+        this.mockMvc.perform(get("/codingtask/latest"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.timeUpdated", notNullValue()))
@@ -32,7 +32,7 @@ public class BitcoinExchangeRateControllerTest {
 
     @Test
     public void shouldReturnHistoricalBitcoinRateAndDateAsJson() throws Exception {
-        this.mockMvc.perform(get("/historical?startDate=2020-01-01&endDate=2020-01-31"))
+        this.mockMvc.perform(get("/codingtask/historical?startDate=2020-01-01&endDate=2020-01-31"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", isA(JSONArray.class)))
@@ -41,13 +41,13 @@ public class BitcoinExchangeRateControllerTest {
 
     @Test
     public void shouldEnforceHistoricalBitcoinRateStartDateParameter() throws Exception {
-        this.mockMvc.perform(get("/historical?endDate=2020-01-31"))
+        this.mockMvc.perform(get("/codingtask/historical?endDate=2020-01-31"))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     public void shouldEnforceHistoricalBitcoinRateEndDateParameter() throws Exception {
-        this.mockMvc.perform(get("/historical?startDate=2020-01-31"))
+        this.mockMvc.perform(get("/codingtask/historical?startDate=2020-01-31"))
                 .andExpect(status().isBadRequest());
     }
 }
