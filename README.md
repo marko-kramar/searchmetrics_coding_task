@@ -8,7 +8,7 @@ Service has two endpoints that return corresponding JSON:
 -------------
 1. [/codingtask/latest](http://markokramar.com:9090/codingtask/latest)
 
-Retrieves latest available Bitcoin rate
+Retrieves latest available Bitcoin rate.
 
 2. [/codingtask/historical](http://markokramar.com:9090/codingtask/historical?startDate=2020-01-01&endDate=2020-02-02)
 
