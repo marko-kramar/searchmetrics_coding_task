@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 import static java.time.format.DateTimeFormatter.ISO_OFFSET_DATE_TIME;
@@ -15,7 +17,11 @@ public class BitcoinLatestUsdRate implements Serializable {
 
     @JsonProperty("time")
     private void flattenNestedTimeUpdated(Map<String, Object> time) {
-        this.timeUpdated = LocalDateTime.parse(time.get("updatedISO").toString(), ISO_OFFSET_DATE_TIME);
+        LocalDateTime localDateTime = LocalDateTime.parse(time.get("updatedISO").toString(), ISO_OFFSET_DATE_TIME);
+
+        // Convert zone from UTC to CET
+        ZonedDateTime utcTimeZoned = ZonedDateTime.of(localDateTime, ZoneId.of("UTC"));
+        this.timeUpdated = utcTimeZoned.withZoneSameInstant(ZoneId.of("CET")).toLocalDateTime();
     }
 
     @JsonProperty("bpi")

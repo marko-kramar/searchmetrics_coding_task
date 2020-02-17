@@ -50,7 +50,7 @@ $(function() {
             url: "/latest"
         }).done(function(data) {
             $("#latest-rate").text(parseAndShortenRate(data.rate) + " USD");
-            $("#latest-date").text(getDateAndTimeString(new Date(data.timeUpdated)));
+            $("#latest-date").text(getDateAndTimeString(new Date(data.timeUpdated)) + " (Central European Time)");
             $("#latest-price-paragraph").fadeIn("fast");
         });
     });
