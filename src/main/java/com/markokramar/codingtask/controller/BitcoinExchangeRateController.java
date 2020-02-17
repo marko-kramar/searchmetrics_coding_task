@@ -34,6 +34,10 @@ public class BitcoinExchangeRateController {
             throw new IllegalArgumentException("Error: The 'endDate' parameter is invalid!");
         }
 
+        if (endDate.isBefore(startDate)) {
+            throw new IllegalArgumentException("Error: The 'endDate' parameter should be chronologically after 'startDate'!");
+        }
+
         return bitcoinExchangeRateService.fetchHistoricalRates(startDate, endDate);
     }
 

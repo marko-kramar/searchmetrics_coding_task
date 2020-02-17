@@ -1,12 +1,14 @@
 $(function() {
     $("#datepicker-from").datepicker({
         autoHide: true,
-        format: 'dd.mm.yyyy'
+        format: 'dd.mm.yyyy',
+        startDate: new Date(2010, 6, 17)
     });
 
     $("#datepicker-to").datepicker({
         autoHide: true,
-        format: 'dd.mm.yyyy'
+        format: 'dd.mm.yyyy',
+        endDate: new Date()
     });
 
     $("#datepicker-from").datepicker('setDate', new Date(new Date().getFullYear(), 0, 1));
@@ -25,6 +27,12 @@ $(function() {
         if (!dateTo) {
             alert("Please enter date to!");
             $("#datepicker-to").focus();
+            return;
+        }
+
+        if (dateTo < dateFrom) {
+            alert("'Date from' should be chronologically before 'Date to'!");
+            $("#datepicker-from").focus();
             return;
         }
 
