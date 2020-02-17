@@ -18,17 +18,14 @@
             <br>
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                    <a id="latest-tab" data-toggle="tab" class="nav-link active" href="#latest" role="tab" aria-controls="latest" aria-selected="true">Latest price</a>
+                    <a id="historical-tab" data-toggle="tab" class="nav-link active" href="#historical" role="tab" aria-controls="historical" aria-selected="true">Historical prices</a>
                 </li>
                 <li class="nav-item">
-                    <a id="historical-tab" data-toggle="tab" class="nav-link" href="#historical" role="tab" aria-controls="historical" aria-selected="false">Historical prices</a>
+                    <a id="latest-tab" data-toggle="tab" class="nav-link" href="#latest" role="tab" aria-controls="latest" aria-selected="false">Latest price</a>
                 </li>
             </ul>
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="latest" role="tabpanel" aria-labelledby="latest-tab">
-
-                </div>
-                <div class="tab-pane fade" id="historical" role="tabpanel" aria-labelledby="historical-tab">
+                <div class="tab-pane show active" id="historical" role="tabpanel" aria-labelledby="historical-tab">
                     <div class="container historical-container">
                         <br>
                         <div class="row datepicker-row">
@@ -49,9 +46,9 @@
                         <table id="historical-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Rate</th>
+                                    <th class="col-row-number" scope="col">#</th>
+                                    <th class="col-date" scope="col">Date</th>
+                                    <th class="col-rate" scope="col">Rate</th>
                                 </tr>
                             </thead>
                             <tbody id="historical-table-body">
@@ -59,6 +56,12 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <div class="tab-pane fade" id="latest" role="tabpanel" aria-labelledby="latest-tab">
+                    <br>
+                    <button type="button" id="btn-fetch-latest" class="btn btn-primary">Fetch latest Bitcoin price data</button>
+                    <br><br>
+                    <p id="latest-price-paragraph">Latest Bitcoin price is <span id="latest-rate"></span> from <span id="latest-date"></span></p>
                 </div>
             </div>
         </div>

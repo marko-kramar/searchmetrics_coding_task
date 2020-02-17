@@ -2,6 +2,27 @@
     padding-left: 0;
 }
 
-.historical-table {
+#historical-table {
     display: none;
+}
+
+.col-row-number {
+    width: 10% !important;
+    text-align: center;
+}
+
+.col-date {
+    width: 45% !important;
+}
+
+.col-rate {
+    width: 45% !important;
+}
+
+#latest-price-paragraph {
+    display: none;
+}
+
+#latest-rate, #latest-date {
+    font-weight: bold;
 }

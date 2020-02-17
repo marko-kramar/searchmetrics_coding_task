@@ -28,7 +28,7 @@ $(function() {
             return;
         }
 
-        $("#historical-table").fadeOut("fast");
+        $("#historical-table").css("display", "none");
         $("#historical-table-body").html("");
 
         $.ajax({
@@ -39,6 +39,19 @@ $(function() {
             }
         }).done(function(data) {
             populateTableWithHistoricalBitcoinPrices(data);
+        });
+    });
+
+    $("#btn-fetch-latest").click(function() {
+        $("#latest-price-paragraph").css("display", "none");
+        $("#latest-rate, #latest-date").html("");
+
+        $.ajax({
+            url: "/latest"
+        }).done(function(data) {
+            $("#latest-rate").text(parseAndShortenRate(data.rate) + " USD");
+            $("#latest-date").text(getDateAndTimeString(new Date(data.timeUpdated)));
+            $("#latest-price-paragraph").fadeIn("fast");
         });
     });
 });
@@ -52,12 +65,12 @@ function populateTableWithHistoricalBitcoinPrices(data) {
         setTimeout(function() {
             let item = data[i];
             let tr = $(document.createElement("tr"));
-            let rowNumber = $(document.createElement("th")).appendTo(tr).addClass("scope");
+            let rowNumber = $(document.createElement("th")).appendTo(tr).addClass("col-row-number");
             rowNumber.text(i+1);
-            let dateCell = $(document.createElement("td")).appendTo(tr);
-            dateCell.text(item.date);
-            let rateCell = $(document.createElement("td")).appendTo(tr);
-            rateCell.text(parseFloat(item.rate).toFixed(2));
+            let dateCell = $(document.createElement("td")).appendTo(tr).addClass("col-date");
+            dateCell.text(getLocalDate(new Date(item.date)));
+            let rateCell = $(document.createElement("td")).appendTo(tr).addClass("col-rate");
+            rateCell.text(parseAndShortenRate(item.rate) + " USD");
             tr.appendTo($("#historical-table-body"));
         }, (i+1) * 50)
     }
@@ -65,18 +78,54 @@ function populateTableWithHistoricalBitcoinPrices(data) {
     $("#historical-table").fadeIn("fast");
 };
 
+function parseAndShortenRate(rate) {
+    var rateShortened = parseFloat(rate).toFixed(2);
+    return "" + rateShortened.replace(".", ",");
+}
+
+function getLocalDate(jsDate) {
+    let dateParts = extractDateParts(jsDate);
+    return dateParts.day + "." + dateParts.month + "." + dateParts.year;
+}
+
 function getIsoShortDate(jsDate) {
-    var year = jsDate.getFullYear();
-    var month = jsDate.getMonth() + 1;
-    var date = jsDate.getDate();
+    let dateParts = extractDateParts(jsDate);
+    return dateParts.year + "-" + dateParts.month + "-" + dateParts.day;
+}
 
-    if (month < 10) {
-        month = "0" + month;
+function extractDateParts(jsDate) {
+    var yr = jsDate.getFullYear();
+    var mnth = jsDate.getMonth() + 1;
+    var dt = jsDate.getDate();
+
+    if (mnth < 10) {
+        mnth = "0" + mnth;
     }
 
-    if (date < 10) {
-        date = "0" + date;
+    if (dt < 10) {
+        dt = "0" + dt;
     }
 
-    return year + "-" + month + "-" + date;
+    return { year: yr, month: mnth, day: dt };
+}
+
+function getDateAndTimeString(jsDateAndTime) {
+    let dateParts = extractDateParts(jsDateAndTime);
+
+    var hours = jsDateAndTime.getHours();
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+
+    var minutes = jsDateAndTime.getMinutes();
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+
+    var seconds = jsDateAndTime.getSeconds();
+    if (seconds < 10) {
+        seconds = "0" + seconds;
+    }
+
+    return dateParts.day + "." + dateParts.month + "." + dateParts.year + " " + hours + ":" + minutes + ":" + seconds;
 }
