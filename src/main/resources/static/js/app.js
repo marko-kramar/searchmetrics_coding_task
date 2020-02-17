@@ -80,7 +80,8 @@ function populateTableWithHistoricalBitcoinPrices(data) {
 
 function parseAndShortenRate(rate) {
     var rateShortened = parseFloat(rate).toFixed(2);
-    return "" + rateShortened.replace(".", ",");
+    rateShortened = "" + rateShortened.replace(".", ",");
+    return rateShortened.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
 function getLocalDate(jsDate) {
